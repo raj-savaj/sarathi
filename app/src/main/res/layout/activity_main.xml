@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="20dp"
+    tools:context=".MainActivity">
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Customer Name"
+        android:completionThreshold="1"
+        android:layout_marginBottom="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginBottom="15dp" />
+        <EditText
+            android:id="@+id/receipt_no"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Receipt No"
+            android:inputType="number"
+            android:layout_marginBottom="15dp" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/mno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mobile Number"
+        android:layout_marginBottom="15dp" />
+    <Button
+        android:id="@+id/btnadd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        android:background="@color/main"
+        android:textColor="#FFF"
+        android:textSize="23dp"
+        android:textStyle="bold"/>
+
+    <WebView
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/webview01"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:scrollbars="none">
+    </WebView>
+</LinearLayout>
