@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="@dimen/_6sdp"
+    android:paddingLeft="@dimen/_4sdp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:paddingRight="@dimen/_4sdp">
+        <TextView
+            android:id="@+id/txtname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#1c2134"
+            android:textSize="@dimen/_16ssp"
+            android:text="Savaj Raj Vinubhai"/>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_2sdp">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/txtRem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/frygiamedium"
+            android:text="2,000"
+            android:textColor="#60b399"
+            android:textSize="@dimen/_15ssp" />
+        <TextView
+            android:id="@+id/txtAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20,000"
+            android:textColor="#df7c5c"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBaseline="@+id/txtRem"
+            android:textSize="@dimen/_10sdp" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/txtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/frygiamedium"
+            android:text="2,000"
+            android:textColor="#60b399"
+            android:textSize="@dimen/_15ssp" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/admin_line"/>
+</LinearLayout>

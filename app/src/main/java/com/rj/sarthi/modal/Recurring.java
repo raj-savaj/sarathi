@@ -7,9 +7,11 @@ import java.util.Date;
 
 public class Recurring {
 
+    private String Name;
     private String AC_No;
     private String C_Paid;
     private int receipt_no;
+    private int Payable;
     private String date;
 
     public Recurring(String AC_No, String c_Paid, int receipt_no, String date) {
@@ -63,5 +65,21 @@ public class Recurring {
         }
         return "";
 
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public int getPayable() {
+        return Payable;
+    }
+
+    public void setPayable(int payable) {
+        Payable = payable;
     }
 }

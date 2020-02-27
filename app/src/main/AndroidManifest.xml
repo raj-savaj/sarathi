@@ -13,18 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserMainActivity">
-        </activity>
+        <activity android:name=".AdminHome" android:theme="@style/AdminAction"></activity>
+        <activity android:name=".UserMainActivity"></activity>
         <activity
             android:name=".Login"
-            android:theme="@style/Noaction">
-        </activity>
+            android:theme="@style/Noaction"></activity>
         <activity
             android:name=".Splash"
             android:theme="@style/Noaction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -9,11 +9,12 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface API {
 
-    String BASE_URL = "http://192.168.131.2//Sarathi/Admin/API/";
-
+    /*String BASE_URL = "http://192.168.0.137/Sarathi/Admin/API/";*/
+    String BASE_URL = "http://shreesarathinagarik.com/Admin/API/";
     @GET("member.php")
     Call<List<Member>> Member();
 
@@ -31,4 +32,13 @@ public interface API {
     @FormUrlEncoded
     @POST("GetRecurringByMember.php")
     Call<String> GetClientRecurring(@Field("client_id") String acid);
+
+    @FormUrlEncoded
+    @POST("updateProfile.php")
+    Call<String> UpdateProfile(@Field("acid") String acid, @Field("mno") String mno,@Field("pass") String pass);
+
+    @FormUrlEncoded
+    @POST("GetRecurringByDate.php")
+    Call<String> GetAdminRecurring(@Field("date") String date);
+
 }

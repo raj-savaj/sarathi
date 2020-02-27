@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.rj.sarthi.Util.API;
 import com.rj.sarthi.Util.OkhttpClient;
 import com.rj.sarthi.adapater.SearchAdapter;
@@ -105,14 +108,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SaveCustomer(){
-        ViewGroup viewGroup = findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.processing, viewGroup, false);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-        alertDialog = builder.create();
-        alertDialog.setCancelable(false);
-        alertDialog.show();
+        KProgressHUD dialog=KProgressHUD.create(MainActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true)
+                .setLabel("Please wait");
+        dialog.show();
 
         btnadd.setEnabled(false);
         Retrofit retrofit=new Retrofit.Builder()
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 btnadd.setEnabled(true);
-                alertDialog.cancel();
+                dialog.dismiss();
                 ClearText();
                 if(response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, ""+response.body(), Toast.LENGTH_LONG).show();
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<String> call, Throwable t) {
                 ClearText();
                 btnadd.setEnabled(true);
-                alertDialog.cancel();
+                dialog.dismiss();
                 Toast.makeText(MainActivity.this, "Host Error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -179,5 +179,24 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Host Error", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.agent_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                Intent i=new Intent(MainActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

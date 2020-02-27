@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.rj.sarthi.Util.API;
 import com.rj.sarthi.Util.OkhttpClient;
 
@@ -28,11 +29,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import com.rj.sarthi.Util.Session;
 
 public class Login extends AppCompatActivity {
     EditText edt_uname,edt_pass;
     ImageView btnLogin;
     AlertDialog alertDialog;
+    Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,7 @@ public class Login extends AppCompatActivity {
         edt_pass=findViewById(R.id.inpass);
         edt_uname=findViewById(R.id.inuname);
         btnLogin=findViewById(R.id.btnlogin);
-
+        session=new Session(Login.this);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,15 +59,11 @@ public class Login extends AppCompatActivity {
     }
 
     public void checkLogin(String uname,String Pass){
-        ViewGroup viewGroup = findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.processing, viewGroup, false);
-        TextView head=dialogView.findViewById(R.id.setHeader);
-        head.setText("Checking Your Detail...");
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-        alertDialog = builder.create();
-        alertDialog.setCancelable(false);
-        alertDialog.show();
+        KProgressHUD dialog=KProgressHUD.create(Login.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true)
+                .setLabel("Please wait");
+        dialog.show();
 
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(API.BASE_URL)
@@ -76,19 +75,25 @@ public class Login extends AppCompatActivity {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                alertDialog.cancel();
+                dialog.dismiss();
+                Log.e("Err0r",response.body());
                 if(response.isSuccessful()){
                     try {
                         JSONObject obj=new JSONObject(response.body());
                         if(obj.getInt("status")==200){
                             if(obj.getInt("role")==1){
-                                //User
+                                session.createLoginSession(obj.getString("acid"),obj.getString("name"),obj.getString("MobileNo"),Pass);
                                 Intent i=new Intent(Login.this,UserMainActivity.class);
                                 startActivity(i);
                                 finish();
                             }
                             else if(obj.getInt("role")==2){
                                 Intent i=new Intent(Login.this,MainActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                            else if(obj.getInt("role")==3){
+                                Intent i=new Intent(Login.this,AdminHome.class);
                                 startActivity(i);
                                 finish();
                             }
@@ -108,7 +113,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                alertDialog.cancel();
+                dialog.dismiss();
                 Log.e("H Error",""+t.getMessage());
                 Toast.makeText(Login.this, "Host Error", Toast.LENGTH_SHORT).show();
             }

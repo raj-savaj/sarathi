@@ -3,6 +3,8 @@ package com.rj.sarthi.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.HashMap;
+
 public class Session {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -16,9 +18,12 @@ public class Session {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String AID){
+    public void createLoginSession(String AID,String name,String mno,String pass){
         editor.putBoolean("IS_LOGIN", true);
         editor.putString("uid",AID);
+        editor.putString("name",name);
+        editor.putString("pass",pass);
+        editor.putString("mobileno",mno);
         editor.commit();
     }
 
@@ -28,5 +33,15 @@ public class Session {
 
     public String getAcId(){
         return pref.getString("uid","");
+    }
+
+    public HashMap<String,String> getUserDetail()
+    {
+        HashMap<String,String> detail=new HashMap<>();
+        detail.put("uid",pref.getString("uid",""));
+        detail.put("name",pref.getString("name",""));
+        detail.put("mobileno",pref.getString("mobileno",""));
+        detail.put("pass",pref.getString("pass",""));
+        return detail;
     }
 }
